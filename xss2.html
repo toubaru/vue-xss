@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+  </head>
+<body>
+  <div id="app">
+    <h1>{{ title }}</h1>
+    <div>
+      v-bind:href を使ったXSSになります。<br>
+      テキストボックスに下記を入力して、DemoをclickするとXSSが発動します。<br>
+      javascript:alert(1)
+    </div>
+    <a v-bind:href="url">Demo</a><br>
+    <input v-model="url" placeholder=""><br>
+    <br><br><br>
+    <div>
+      v-bind:onmouseover を使ったXSSになります。<br>
+      テキストボックスに下記を入力して、Demo2をmouseoverするとXSSが発動します。<br>
+      alert(1)
+    </div>
+    <a href="https://www.ca-adv.co.jp/" :onmouseover="onmouseoverjs">Demo2</a><br>
+    <input v-model="onmouseoverjs"><br>
+    <br><br><br>
+    <div>
+      v-bind:onfocus を使ったXSSになります。<br>
+      テキストボックスに下記を入力して、Demo3のフォーカスするとXSSが発動します。<br>
+      console.log(1)
+    </div>
+    <a href="https://www.ca-adv.co.jp/" v-bind:onfocus="onfocusjs">Demo3</a><br>
+    <input v-model="onfocusjs"><br>
+    <br><br><br>
+    <div>
+      v-bind:onblur を使ったXSSになります。<br>
+      テキストボックスに下記を入力して、Demo4のフォーカス後、フォーカスをはずすとXSSが発動します。<br>
+      console.log(2)
+    </div>
+    <a href="https://www.ca-adv.co.jp/" v-bind:onblur="onblurjs">Demo4</a><br>
+    <input v-model="onblurjs"><br>
+    <br><br><br>
+    <div>
+      v-bind:onerror を使ったXSSになります。<br>
+      Demo5をclickするとXSSが発動します。
+    </div>
+    <img src="." v-bind:onerror="onerrorjs"><br>
+    <a href="javascript:window.location.href='/xss2.html?ts='+(new Date().getTime())+'#alert(1)';">Demo5</a>
+    <br><br><br>
+  </div>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        title: 'Vue.js XSSサンプル 2',
+        url: '',
+        onmouseoverjs: '',
+        onerrorjs: location.hash.substring(1),
+        onblurjs: '',
+        onfocusjs: '',
+      }
+    })
+  </script>
+</body>
+</html>

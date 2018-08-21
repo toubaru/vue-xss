@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.min.js"></script>
+  </head>
+<body>
+  <div id="app">
+    <h1>{{ title }}</h1>
+    <div>
+      v-htmlを使ったXSSになります。
+      テキストボックスに下記を入力するとXSSが発動します。
+      <pre>
+          &lt;img src=. onerror=alert(1)&gt;
+      </pre>
+    </div>
+    <p>Mustache 構文を使った場合: {{ msg }}</p>
+    <p>v-html ディレクティブを使った場合: <span v-html="msg"></span></p>
+    <input v-model="msg">
+  </div>
+  <script>
+      new Vue({
+        el: '#app',
+        data: {
+          title: 'Vue.js XSSサンプル 1',
+          msg: 'test'
+        }
+      })
+  </script>
+</body>
+</html>
