@@ -18,6 +18,9 @@ $user = $users[$id];
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.min.js"></script>
   </head>
 <body>
+  demoをclickするとXSSが発動します。<br>
+  Vue.compileを使って生のHTMLが登録されるパターン。<br>
+  どうやったら自然に脆弱性が入るのか謎。<br>
   <div id="app"></div>
   <script>
   var res = Vue.compile('<div><h1>{{ title }}</h1><?=$user["user_name"]; ?> さんのプロフィール<br><a href="/xss5.php?id=2">demo</a></div>')
